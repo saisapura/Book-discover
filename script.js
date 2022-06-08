@@ -9,7 +9,7 @@ function loadBook(filename, displayName) {
   document.getElementById("keyword").value = "";
 
   //create a server a request to load our book
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open("GET", url, true);
   xhr.send();
 
@@ -24,7 +24,7 @@ function loadBook(filename, displayName) {
 
       document.getElementById("fileContent").innerHTML = currentBook;
 
-      var elmnt = document.getElementById("fileContent");
+      const elmnt = document.getElementById("fileContent");
       elmnt.scrollTop = 0;
     }
   };
@@ -32,15 +32,15 @@ function loadBook(filename, displayName) {
 
 //get the stats for the book
 function getDocStats(fileContent) {
-  var docLength = document.getElementById("docLength");
-  var wordCount = document.getElementById("wordCount");
-  var charCount = document.getElementById("charCount");
+  const docLength = document.getElementById("docLength");
+  const wordCount = document.getElementById("wordCount");
+  const charCount = document.getElementById("charCount");
 
   let text = fileContent.toLowerCase();
   let wordArray = text.match(/\b\S+\b/g);
   let wordDictionary = {};
 
-  var uncommonWords = [];
+  const uncommonWords = [];
 
   //filter out the uncommon words
   uncommonWords = filterStopWords(wordArray);
@@ -59,9 +59,9 @@ function getDocStats(fileContent) {
   let wordList = sortProperties(wordDictionary);
 
   //Return the top 5 words
-  var top5Words = wordList.slice(0, 6);
+  const top5Words = wordList.slice(0, 6);
   //return the least 5 words
-  var least5Words = wordList.slice(-6, wordList.length);
+  const least5Words = wordList.slice(-6, wordList.length);
 
   //Write the values to the page
   ULTemplate(top5Words, document.getElementById("mostUsed"));
@@ -100,9 +100,9 @@ function sortProperties(obj) {
 
 //filter out stop words
 function filterStopWords(wordArray) {
-  var commonWords = getStopWords();
-  var commonObj = {};
-  var uncommonArr = [];
+  const commonWords = getStopWords();
+  const commonObj = {};
+  const uncommonArr = [];
 
   for (i = 0; i < commonWords.length; i++) {
     commonObj[commonWords[i].trim()] = true;
@@ -309,10 +309,10 @@ function getStopWords() {
 //highlight the words in search
 function performMark() {
   //read the keyword
-  var keyword = document.getElementById("keyword").value;
-  var display = document.getElementById("fileContent");
+  const keyword = document.getElementById("keyword").value;
+  const display = document.getElementById("fileContent");
 
-  var newContent = "";
+  const newContent = "";
 
   //find all the currently marked items
   let spans = document.querySelectorAll("mark");
@@ -320,24 +320,24 @@ function performMark() {
   //<mark>Harry</mark>
   //Harry
 
-  for (var i = 0; i < spans.length; i++) {
+  for (const i = 0; i < spans.length; i++) {
     spans[i].outerHTML = spans[i].innerHTML;
   }
 
-  var re = new RegExp(keyword, "gi");
-  var replaceText = "<mark id='markme'>$&</mark>";
-  var bookContent = display.innerHTML;
+  const re = new RegExp(keyword, "gi");
+  const replaceText = "<mark id='markme'>$&</mark>";
+  const bookContent = display.innerHTML;
 
   //add the mark to the book content
   newContent = bookContent.replace(re, replaceText);
 
   display.innerHTML = newContent;
-  var count = document.querySelectorAll("mark").length;
+  const count = document.querySelectorAll("mark").length;
   document.getElementById("searchstat").innerHTML =
     "found " + count + " matches";
 
   if (count > 0) {
-    var element = document.getElementById("markme");
+    const element = document.getElementById("markme");
     element.scrollIntoView();
   }
 }
