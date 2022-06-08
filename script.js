@@ -40,7 +40,7 @@ function getDocStats(fileContent) {
   let wordArray = text.match(/\b\S+\b/g);
   let wordDictionary = {};
 
-  const uncommonWords = [];
+  let uncommonWords = [];
 
   //filter out the uncommon words
   uncommonWords = filterStopWords(wordArray);
